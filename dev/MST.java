@@ -37,7 +37,7 @@ public class MST {
     private static int n = 50;              // default number of points
     private static long sd = 0;             // default random number seed
     private static int numThreads = 1;      // default 
-
+    private static String fn = "";
     private static final int TIMING_ONLY    = 0;
     private static final int PRINT_EVENTS   = 1;
     private static final int SHOW_RESULT    = 2;
@@ -46,7 +46,7 @@ public class MST {
 
     // Examine command-line arguments for alternative running modes.
     //
-    private static void parseArgs(String[] args) {
+    private static void parseArgs(String[] args) throws Exception {
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-a")) {
                 if (++i >= args.length) {
@@ -86,7 +86,8 @@ public class MST {
                         System.err.printf("Invalid seed: %s\n", args[i]);
                     }
                 }
-            } else if (args[i].equals("-t")) {
+            } 
+            else if (args[i].equals("-t")) {
                 if (++i >= args.length) {
                     System.err.print("Missing number of threads\n");
                 } else {
@@ -101,7 +102,78 @@ public class MST {
                         System.err.printf("Invalid number of threads: %s\n", args[i]);
                     }
                 }
-            } else {
+            }
+            else if (args[i].equals("-c")) {
+                if (++i >= args.length) {
+                    System.err.print("Missing configuration files\n");
+                } else {
+                        fn = args[i];
+                        FileReader fr = new FileReader(fn); 
+                        BufferedReader br = new BufferedReader(fr); 
+                        String s; 
+                        while((s = br.readLine()) != null) 
+                        { 
+                             System.out.println("ckpt00");
+                             System.out.println(s); 
+                             String[] array = s.split(" ");
+                             if ( array.length != 2 ) 
+                             {
+                                    System.out.printf("Invalid configuration file size = %s\n",array.length);
+                             }
+                             else
+                             {
+                                 System.out.printf("valid configuration file size = %s\n",array.length);
+                             }
+                             if (array[0].equals("-t"))
+                             {
+                                 int nt = Integer.parseInt(array[1]);
+                                 if (nt > 0) {
+                                    numThreads = nt;
+                                 } else {
+                                     System.err.printf("Invalid number of threads: %s\n", array[1]);
+                                 }
+                             }
+                             else if (array[0].equals("-a"))
+                             {
+                                int an = -1;
+                                try {
+                                    an = Integer.parseInt(array[1]);
+                                } catch (NumberFormatException e) { }
+                                if (an >= TIMING_ONLY && an <= FULL_ANIMATION) {
+                                    animate = an;
+                                } else {
+                                    System.err.printf("Invalid animation level: %s\n", array[1]);
+                                }
+                             }
+                             else if (array[0].equals("-t")) 
+                             {
+                                int nt = -1;
+                                try {
+                                    nt = Integer.parseInt(args[i]);
+                                } catch (NumberFormatException e) { }
+                                if (nt > 0) {
+                                    numThreads = nt;
+                                    // when I pass -t 1 as the cmd args, one thread got spawned
+                                } else {
+                                    System.err.printf("Invalid number of threads: %s\n", array[1]);
+                                } 
+                             }                              
+                             else if (array[0].equals("-s"))  
+                             {
+                                try {
+                                    sd = Integer.parseInt(array[1]);
+                                } catch (NumberFormatException e) {
+                                    System.err.printf("Invalid seed: %s\n", array[1]);
+                                }
+                             }
+                             else{
+                                System.err.printf("doesn't match any, Invalid configuration file, element 0: %s  element 1: %s\n", array[0],array[1]);
+                             }                                                     
+                        } 
+                        fr.close(); 
+                }
+            }
+            else {
                 System.err.printf("Unexpected argument: %s\n", args[i]);
             }
         }
@@ -147,7 +219,7 @@ public class MST {
         }
         return s;
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         parseArgs(args);
         MST me = new MST();
         JFrame f = null;
