@@ -149,7 +149,7 @@ public class MST {
                              {
                                 int nt = -1;
                                 try {
-                                    nt = Integer.parseInt(args[i]);
+                                    nt = Integer.parseInt(array[1]);
                                 } catch (NumberFormatException e) { }
                                 if (nt > 0) {
                                     numThreads = nt;
@@ -724,6 +724,8 @@ public class MST {
 
     private void triangulate(int l, int r, int low0, int high0, int low1, int high1, int parity) throws Coordinator.KilledException {
          System.out.printf("%s %s %s %s %s %s %s\n",l, r, low0, high0, low1,high1,parity);
+
+         // extra credit 2, base on (l-r), so multithreading won't happen when there are only 2 points 
          //System.out.println("ckpt1");
          //try{Thread.sleep(500);}
          //catch(InterruptedException e){System.out.println("ckpt5");}
@@ -846,8 +848,9 @@ public class MST {
          } else {
             // divide and conquer
             System.out.println("Divide & conquer");
-            
-            if ((numThreads>= 2) && (numThreads == numAvaibleThreads)){
+            int dif = r-l;  // r is bigger extra credit 2
+
+            if ((numThreads>= 2) && (numThreads == numAvaibleThreads) && (dif > 2)){
                 System.out.println("multithreading round 1");
                 divcounter++;
                 t T1 = new t("1",1,l, i, low1, high1, low0, mid, 1-parity);
@@ -867,7 +870,7 @@ public class MST {
                 System.out.printf("%s %s\n", numThreads,numAvaibleThreads); // check, available threads = num of total threadss
                 }
             }
-            else if (numAvaibleThreads >= 2)
+            else if ((numAvaibleThreads >= 2)&& (dif > 2))
             {    divcounter++;
                 System.out.println("multithreading round unknowm" + numAvaibleThreads);
                 t T1 = new t(String.valueOf(numThreads- numAvaibleThreads+1),numThreads-numAvaibleThreads+1,l, i, low1, high1, low0, mid, 1-parity);
