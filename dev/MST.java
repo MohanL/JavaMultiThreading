@@ -1083,13 +1083,20 @@ You may discover, however, that the condition synchronization for this strategy 
 
 // Not finished
 // need to analyze how -t 2 is better than -t 10?
+// By actually analyze the running time for t is even/odd, there is a bug
+// since this is not divide conquer but could be treated as divide and conquer, 3/4 number of threads should behave the same
     public void KruskalSolve()
         throws Coordinator.KilledException 
         {
         System.out.println("Start Kruskals");
         int numTrees = n;
         //for (edge e : edges)
-        r[] threadholder = new r[numThreads];
+	
+	if((numThreads >= 3) && (numThreads % 2 != 0))
+		numThreads -= 1;
+	numAvaibleThreads = numThreads;
+        
+	r[] threadholder = new r[numThreads];
         r[] threadholder2 = new r[numThreads];
         point[] repold1 = new point[numThreads]; // old rep
         point[] repold2 = new point[numThreads]; // old rep
@@ -1205,7 +1212,7 @@ You may discover, however, that the condition synchronization for this strategy 
             // in this case, some dead threads will be reused
             // currently there is no need to use this
             //***************************************************************************************************************************************************************************
-            else if ((numAvaibleThreads >= 2) && (flag2 == 1))
+            else if ((numAvaibleThreads >= 2) && (flag2 == 0))
             {   
                 System.out.println("inside thread recycle");
                 List<Integer> l = new ArrayList<Integer>();
