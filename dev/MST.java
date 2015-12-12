@@ -113,7 +113,7 @@ public class MST {
                         String s; 
                         while((s = br.readLine()) != null) 
                         { 
-                             System.out.println("ckpt00");
+                             //System.out.println("ckpt00");
                              System.out.println(s); 
                              String[] array = s.split(" ");
                              if ( array.length != 2 ) 
@@ -723,7 +723,7 @@ public class MST {
     //     System.out.printf("%s %s %s %s %s %s %s\n",l, r, low0, high0, low1,high1,parity);
 
     private void triangulate(int l, int r, int low0, int high0, int low1, int high1, int parity) throws Coordinator.KilledException {
-         System.out.printf("%s %s %s %s %s %s %s\n",l, r, low0, high0, low1,high1,parity);
+         //System.out.printf("%s %s %s %s %s %s %s\n",l, r, low0, high0, low1,high1,parity);
 
          // extra credit 2, base on (l-r), so multithreading won't happen when there are only 2 points 
          //System.out.println("ckpt1");
@@ -741,13 +741,13 @@ public class MST {
          }
          //System.out.println("ckpt2");
          if (l == r) {
-             System.out.println("case 1 return");
+             //System.out.println("case 1 return");
              return;
          }
          if (l == r-1) {
              new edge(points[l], points[r], null, null, dir1);
                  // direction doesn't matter in this case
-             System.out.println("case 2 return");
+             //System.out.println("case 2 return");
              return;
          }
          if (l == r-2) {     // make single triangle
@@ -760,7 +760,7 @@ public class MST {
                  // new edge is dir1 of edge 1, dir0 of edge 2
                  new edge(points[l], points[r], e1, e2, dir1);
              }
-             System.out.println("case 3 return");
+             //System.out.println("case 3 return");
              return;
          }
          //System.out.println("ckpt3");
@@ -847,11 +847,11 @@ public class MST {
              triangulate(l, i, low1, high1, low0, mid, 1-parity);
          } else {
             // divide and conquer
-            System.out.println("Divide & conquer");
+            //System.out.println("Divide & conquer");
             int dif = r-l;  // r is bigger extra credit 2
 
             if ((numThreads>= 2) && (numThreads == numAvaibleThreads) && (dif > 2)){
-                System.out.println("multithreading round 1");
+                //System.out.println("multithreading round 1");
                 divcounter++;
                 t T1 = new t("1",1,l, i, low1, high1, low0, mid, 1-parity);
                 t T2 = new t("2",2,j, r, low1, high1, mid, high0, 1-parity);
@@ -866,13 +866,13 @@ public class MST {
                     System.out.println("Interrupted");
                 }
                 finally{
-                System.out.println("ckpt5");
-                System.out.printf("%s %s\n", numThreads,numAvaibleThreads); // check, available threads = num of total threadss
+                //System.out.println("ckpt5");
+                //System.out.printf("%s %s\n", numThreads,numAvaibleThreads); // check, available threads = num of total threadss
                 }
             }
             else if ((numAvaibleThreads >= 2)&& (dif > 2))
             {    divcounter++;
-                System.out.println("multithreading round unknowm" + numAvaibleThreads);
+                //System.out.println("multithreading round unknowm" + numAvaibleThreads);
                 t T1 = new t(String.valueOf(numThreads- numAvaibleThreads+1),numThreads-numAvaibleThreads+1,l, i, low1, high1, low0, mid, 1-parity);
                 t T2 = new t(String.valueOf(numThreads- numAvaibleThreads+1),numThreads-numAvaibleThreads+1,j, r, low1, high1, mid, high0, 1-parity);
                 T1.start();
@@ -889,7 +889,7 @@ public class MST {
             }
             else{
               divcounter++;
-              System.out.println("single thread round " + divcounter);
+              //System.out.println("single thread round " + divcounter);
               triangulate(l, i, low1, high1, low0, mid, 1-parity);
               triangulate(j, r, low1, high1, mid, high0, 1-parity);
             }
@@ -898,7 +898,7 @@ public class MST {
             // volatile varibales
             // should I make this code atomic ?
             //synchronized(this){
-            System.out.println("ckpt6");
+            //System.out.println("ckpt6");
             // prepare to stitch meshes together up the middle:
              class side {
                  public point p;     // working point
@@ -913,7 +913,7 @@ public class MST {
              side right = new side();
              left.p = lp;
              right.p = rp;
-            System.out.println("ckpt7");
+            //System.out.println("ckpt7");
             // Rotate around extreme point to find edges adjacent to Y
             // axis.  This class is basically a hack to get around the
             // lack of nested subroutines in Java.  We invoke its run
@@ -1087,7 +1087,7 @@ and then force the merges to actually complete in order
     public void KruskalSolve()
         throws Coordinator.KilledException 
         {
-        System.out.println("Start Kruskals");
+        //System.out.println("Start Kruskals");
         int numTrees = n;
         //for (edge e : edges)
 	
@@ -1110,14 +1110,14 @@ and then force the merges to actually complete in order
         int maxthreadsused = 0;
         do
         {   
-            System.out.printf("%s %s\n",e.points[0].hashCode(),e.points[1].hashCode());
+            //System.out.printf("%s %s\n",e.points[0].hashCode(),e.points[1].hashCode());
             point st1,st2;
             // this is the entry for multithreading
             if ((numThreads >= 2)&&(numAvaibleThreads == numThreads))
             {   
                 // initilize 
                 for(int i = 0;i+2<= numThreads;i+=2)
-                {   System.out.printf("kruskal round %s\n",i);
+                {   //System.out.printf("kruskal round %s\n",i);
                     // create multithreads here
                     threadholder[i] = new r(Integer.toString(numThreads- numAvaibleThreads+1),numThreads-numAvaibleThreads+1,e,e.points[0]);
                     threadholder2[i] = new r(Integer.toString(numThreads- numAvaibleThreads+1),numThreads-numAvaibleThreads+1,e,e.points[1]);
@@ -1125,7 +1125,7 @@ and then force the merges to actually complete in order
                     repold2[i] = threadholder2[i].retrep();
                     if(i+2 == numThreads)
                     {
-                        System.out.printf("maximum threads used %s\n",i+2);
+                        //System.out.printf("maximum threads used %s\n",i+2);
                         maxthreadsused = i+2;
                         break;
                     }
@@ -1167,7 +1167,7 @@ and then force the merges to actually complete in order
                         if (pointholder1[j] != pointholder2[j]) {
                             pointholder1[j].merge(pointholder2[j]);
                             threadholder[j].rete().addToMST();
-                            System.out.printf("number of Trees in total %s\n", numTrees);
+                            //System.out.printf("number of Trees in total %s\n", numTrees);
                             if (--numTrees == 1) {
                                 break;
                             }
@@ -1176,7 +1176,7 @@ and then force the merges to actually complete in order
                    
                     else 
                     {
-                        System.out.println("ckpt17");
+                        //System.out.println("ckpt17");
                         edge g = threadholder[j].rete();
                         threadholder[j] = new r(Integer.toString(numThreads- numAvaibleThreads+1),numThreads-numAvaibleThreads+1,g,g.points[0]);
                         threadholder2[j] = new r(Integer.toString(numThreads- numAvaibleThreads+1),numThreads-numAvaibleThreads+1,g,g.points[1]);
@@ -1197,7 +1197,7 @@ and then force the merges to actually complete in order
                         if (pointholder1[j] != pointholder2[j]) {
                             pointholder1[j].merge(pointholder2[j]);
                             threadholder[j].rete().addToMST();
-                            System.out.printf("number of Trees in total %s\n", numTrees);
+                            //System.out.printf("number of Trees in total %s\n", numTrees);
                             if (--numTrees == 1) {
                                 break;
                             }
@@ -1213,7 +1213,7 @@ and then force the merges to actually complete in order
             //***************************************************************************************************************************************************************************
             else if ((numAvaibleThreads >= 2) && (flag2 == 0))
             {   
-                System.out.println("inside thread recycle");
+                //System.out.println("inside thread recycle");
                 List<Integer> l = new ArrayList<Integer>();
                 List<Integer> l2 = new ArrayList<Integer>();
                 A:for(int i = 0;i+2<= maxthreadsused;i+=2)
@@ -1324,9 +1324,9 @@ and then force the merges to actually complete in order
                         }
 
                     }
-                    System.out.println("ckpt27");
+                    //System.out.println("ckpt27");
                 }
-                System.out.println("ckpt28");
+                //System.out.println("ckpt28");
             }
 
             //***************************************************************************************************************************************************************************
@@ -1339,7 +1339,7 @@ and then force the merges to actually complete in order
                     // This edge joins two previously separate subtrees.
                     st1.merge(st2);
                     e.addToMST();
-                    System.out.printf("number of Trees in total %s\n", numTrees);
+                    //System.out.printf("number of Trees in total %s\n", numTrees);
                     if (--numTrees == 1) {
                         break;
                     }
