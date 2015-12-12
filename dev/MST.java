@@ -1078,7 +1078,6 @@ public class MST {
 The easiest strategy is probably to retain the serial iteration over edges, allow threads to identify the subtrees they want to merge (an O(log n) operation) in parallel, 
 and then force the merges to actually complete in order 
 (possibly starting over if they discover that a previous merge has changed which edges are in which subtrees). 
-You may discover, however, that the condition synchronization for this strategy consumes more time than it saves; you’ll want to address this in your write-up. 
 */
 
 // Not finished

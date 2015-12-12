@@ -1,0 +1,10 @@
+#!/bin/bash  
+
+
+ for i in `seq 1 20`;
+     do
+	touch 0test.txt
+	java -cp ../../A6 MST -s 1 > 0test.txt
+	awk '/./{line=$0} END{print line}' 0test.txt >> 0.txt
+	rm 0test.txt
+     done 

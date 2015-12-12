@@ -1,20 +1,20 @@
-0.033,0.010 ,0.043
-0.033,0.011 ,0.044
-0.034,0.011 ,0.045
-0.033,0.010 ,0.043
-0.033,0.009 ,0.042
-0.033,0.010 ,0.043
-0.034,0.010 ,0.044
-0.035,0.011 ,0.046
-0.034,0.010 ,0.044
-0.033,0.011 ,0.044
-0.035,0.010 ,0.045
-0.033,0.010 ,0.043
-0.034,0.012 ,0.046
-0.037,0.012 ,0.049
-0.033,0.010 ,0.043
-0.031,0.010 ,0.041
-0.034,0.011 ,0.045
-0.035,0.010 ,0.045
-0.031,0.009 ,0.040
-0.031,0.011 ,0.042
+elapsed time: 0.041 + 0.107 = 0.148 seconds
+elapsed time: 0.040 + 0.087 = 0.127 seconds
+elapsed time: 0.036 + 0.093 = 0.129 seconds
+elapsed time: 0.041 + 0.084 = 0.125 seconds
+elapsed time: 0.038 + 0.087 = 0.125 seconds
+elapsed time: 0.039 + 0.087 = 0.126 seconds
+elapsed time: 0.040 + 0.092 = 0.132 seconds
+elapsed time: 0.040 + 0.086 = 0.126 seconds
+elapsed time: 0.039 + 0.088 = 0.127 seconds
+elapsed time: 0.037 + 0.085 = 0.122 seconds
+elapsed time: 0.039 + 0.081 = 0.120 seconds
+elapsed time: 0.040 + 0.092 = 0.132 seconds
+elapsed time: 0.036 + 0.084 = 0.120 seconds
+elapsed time: 0.038 + 0.081 = 0.119 seconds
+elapsed time: 0.037 + 0.082 = 0.119 seconds
+elapsed time: 0.037 + 0.080 = 0.117 seconds
+elapsed time: 0.037 + 0.043 = 0.080 seconds
+elapsed time: 0.039 + 0.084 = 0.123 seconds
+elapsed time: 0.039 + 0.081 = 0.120 seconds
+elapsed time: 0.038 + 0.082 = 0.120 seconds
